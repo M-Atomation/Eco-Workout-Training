@@ -31,15 +31,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // ================================================================
     // 2. LÍNEA DE TIEMPO (híbrida: horizontal + vertical)
     // ================================================================
-    const experienciaData = [
-        { cargo: 'Instructora de gimnasio', empresa: 'Ecos del deporte', fecha: 'Mar 2026 – Jun 2026' },
-        { cargo: 'Instructora de gimnasio', empresa: 'Colsubsidio', fecha: 'May 2023 – Ene 2026' },
-        { cargo: 'Instructora · SERO', empresa: 'Servicios Ocasionales', fecha: 'Oct 2022 – May 2023' },
-        { cargo: 'Instructora y Salvavidas', empresa: 'CEDA', fecha: 'Jun 2022 – Sep 2022' },
-        { cargo: 'Instructora de gimnasio', empresa: 'INCAP S.A.S', fecha: 'Oct 2021 – Dic 2021' },
-        { cargo: 'Instructora de gimnasio', empresa: 'Colsubsidio', fecha: 'Jun 2019 – Jul 2020' },
-        { cargo: 'Instructora de gimnasio', empresa: 'ATLANTIC POOLS INC.', fecha: 'Mar 2019 – Abr 2019' }
-    ];
+    const competenciasData = [
+            { nombre: 'Corre como el viento (FAC)', img: 'assets/competitions/corre-viento.jpg' },
+            { nombre: 'Carrera por la Policía', img: 'assets/competitions/carrera-policia.jpg' },
+            { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competitions/batalla-ayacucho.jpg' },
+            { nombre: 'Bimbo global Racer', img: 'assets/competitions/bimbo-global.jpg' },
+            { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competitions/festival-cross.jpg' },
+            { nombre: 'Campeonato distrital', img: 'assets/competitions/campeonato-distrital.jpg' },
+            { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competitions/ruta-fucsia.jpg' },
+            { nombre: 'MMB 10K', img: 'assets/competitions/mmb10k.jpg' },
+            { nombre: 'NatGeo 10K', img: 'assets/competitions/natgeo10k.jpg' },
+            { nombre: 'Carrera de la Mujer 10K', img: 'assets/competitions/mujer10k.jpg' },
+            { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.jpg' }
+        ];
 
     /**
      * Renderiza la línea de tiempo en el DOM.
