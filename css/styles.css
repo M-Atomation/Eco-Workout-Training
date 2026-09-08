@@ -691,113 +691,116 @@ body {
     }
 }
 
-/* ================================================================
-   CORRECCIÓN CARRUSEL EN MÓVILES (≤ 600px)
-   ================================================================ */
+/* Móviles: 1 columna con imagen grande y centrada */
 @media (max-width: 600px) {
     .carousel-container {
-        padding: 1.2rem 0.2rem 1rem;
+        padding: 1rem 0.2rem 1rem;
         border-radius: 16px;
     }
 
-    /* Margen suficiente a los lados para que las flechas no pisen la tarjeta */
     .carousel-track-wrapper {
-        margin: 0 2.5rem;
+        margin: 0 0.5rem;
     }
 
     .carousel-slide {
-        grid-template-columns: 1fr;
-        gap: 0;
+        grid-template-columns: 1fr !important; /* Forzar una sola columna */
+        gap: 0.5rem;
         padding: 0;
     }
 
     .competencia-card {
-        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
         background: #ffffff;
         border-radius: 16px;
-        padding: 1rem 0.8rem;
+        padding: 0.8rem 0.5rem 1rem;
         box-shadow: 0 4px 12px rgba(0, 20, 0, 0.06);
         border: 1px solid #eaf3ea;
-        margin: 0 auto;
         width: 100%;
-        max-width: 280px; /* Centra y limita el ancho óptimo de la tarjeta */
+        max-width: 320px;
+        margin: 0 auto;
     }
 
     .competencia-card img {
         width: 100%;
-        max-width: 220px;
+        max-width: 250px;
         aspect-ratio: 1 / 1;
         object-fit: cover;
-        border-radius: 14px;
+        border-radius: 16px;
         border: 2px solid #d4e8d4;
-        margin: 0 auto 0.6rem auto;
+        margin: 0 auto 0.4rem auto;
         display: block;
     }
 
     .competencia-card .slide-title {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         font-weight: 600;
+        -webkit-line-clamp: 2;
+        margin-top: 0.2rem;
         color: #0f2b0f;
-        margin-top: 0.4rem;
-        text-align: center;
-        width: 100%;
     }
 
     .competencia-card .no-img {
         width: 100%;
-        max-width: 220px;
+        max-width: 250px;
         aspect-ratio: 1 / 1;
-        border-radius: 14px;
-        font-size: 2.5rem;
+        border-radius: 16px;
+        font-size: 3rem;
         display: flex;
         align-items: center;
         justify-content: center;
         background: #e6f2e6;
         border: 2px solid #d4e8d4;
-        margin: 0 auto 0.6rem auto;
+        margin: 0 auto 0.4rem auto;
     }
 
     .carousel-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
         background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 2px 8px rgba(0, 20, 0, 0.15);
+        box-shadow: 0 4px 16px rgba(0, 20, 0, 0.15);
     }
 
-    .prev-btn { left: 0.3rem; }
-    .next-btn { right: 0.3rem; }
-
-    .carousel-dots {
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
+    .prev-btn { left: 0.1rem; }
+    .next-btn { right: 0.1rem; }
 
     .carousel-dots .dot {
-        width: 10px;
-        height: 10px;
+        width: 16px;
+        height: 16px;
     }
+
+    .carousel-dots {
+        gap: 0.9rem;
+        margin-top: 1rem;
+    }
+}
 
 /* ================================================================
    9. PRECIOS - MEJORADO Y UNIFORME
    ================================================================ */
 #pricing-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adaptable y uniforme sin desperdiciar espacio */
-        gap: 1rem;
-    }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 0.5rem 0;
+}
 
 .pricing-card {
-        padding: 1.2rem 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+    background: #f5faf5;
+    border: 1px solid #d4e8d4;
+    border-radius: 20px;
+    padding: 1.8rem 1.2rem;
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    box-shadow: 0 2px 8px rgba(0, 20, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 .pricing-card:hover {
     transform: translateY(-6px);
@@ -813,8 +816,10 @@ body {
 }
 
 .pricing-card .price {
-        font-size: 1.5rem;
-    }
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #1e5e1e;
+    margin: 0.2rem 0;
 }
 
 .pricing-card .desc {
