@@ -84,19 +84,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderTimeline(experienciaData);
 
+   // ================================================================
+    // 3. PRECIOS DESDE GOOGLE SHEETS (CSV) - 2 COLUMNAS
     // ================================================================
-    // 3. PRECIOS DESDE GOOGLE SHEETS (CSV)
-    // ================================================================
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRN13ajUpkzJ5rQWFOcS9XNWm3vxNA5wlwVTrapwFiHzW3SJaCemdjrRec-rjB2a6u2Rq1HtFLdQmxT/pub?output=csv&gid=1546839515&single=true';
+    const SPREADSHEET_ID = '1rCJeF_AtAovZBUlTz-EGWngYx0-lbLqKkGixX4EWSpg';
+    const GID = '1546839515';
+    // URL de exportación directa a CSV compatible con permisos de enlace compartido
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=${GID}`;
+    
     const pricingContainer = document.getElementById('pricing-container');
 
     if (pricingContainer) {
-        // Estado inicial de carga
         pricingContainer.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Cargando planes...</div>`;
 
-        /**
-         * Parsea el texto CSV a un arreglo de objetos (Robusto).
-         */
         function parseCSV(csvText) {
             const lines = csvText.trim().split(/\r?\n/);
             if (lines.length < 2) return [];
@@ -123,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 row.push(current.trim());
                 
-                // Flexibilidad: Agregamos la fila siempre que tenga al menos un dato principal
                 if (row.length > 0 && row[0].trim() !== '') {
                     const obj = {};
                     headers.forEach((header, index) => {
@@ -135,28 +134,23 @@ document.addEventListener('DOMContentLoaded', function () {
             return result;
         }
 
-        /**
-         * Renderiza las tarjetas de precios en el DOM.
-         */
         function renderPricingFromCSV(data) {
             if (!data || data.length === 0) {
-                pricingContainer.innerHTML = '<p style="color: #4a6a4a;">No hay planes disponibles. Contáctame directamente.</p>';
+                pricingContainer.innerHTML = '<p style="color: #4a6a4a;">No hay planes disponibles en este momento.</p>';
                 return;
             }
             
             let html = '';
             data.forEach(row => {
                 const keys = Object.keys(row);
-                // Mapeo seguro a los primeros tres índices dinámicamente
-                const plan = row[keys[0]] || 'Plan';
+                // Mapeo exacto para tus 2 columnas: Columna 0 (Plan) y Columna 1 (Precio)
+                const plan = row[keys[0]] || 'Clase';
                 const precio = row[keys[1]] || '';
-                const desc = row[keys[2]] || '';
                 
                 html += `
                     <div class="pricing-card">
                         <h4>${plan}</h4>
                         <div class="price">${precio}</div>
-                        ${desc ? `<div class="desc">${desc}</div>` : ''}
                     </div>
                 `;
             });
@@ -164,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
             pricingContainer.innerHTML = html;
         }
 
-        // Ejecución de la petición HTTP
         fetch(CSV_URL)
             .then(response => {
                 if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
@@ -175,12 +168,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 renderPricingFromCSV(data);
             })
             .catch(error => {
-                console.error('Error cargando precios de Google Sheets:', error);
+                console.error('Error cargando precios:', error);
                 pricingContainer.innerHTML = `
                     <div style="background:#fce4ec; padding:1rem; border-radius:12px; border-left:4px solid #c62828;">
                         <strong>⚠️ No se pudieron cargar los precios.</strong><br>
-                        Verifica que tu hoja esté publicada correctamente.<br>
-                        <small style="color:#666;">Detalle técnico: ${error.message}</small>
+                        Asegúrate de que tu Google Sheets esté compartido como "Cualquier persona con el enlace puede ser lector".<br>
+                        <small style="color:#666;">Detalle: ${error.message}</small>
                     </div>
                 `;
             });
