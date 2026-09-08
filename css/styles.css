@@ -1332,3 +1332,63 @@ body {
         gap: 0.6rem;
     }
 }
+
+@media (max-width: 600px) {
+    .carousel-slide {
+        grid-template-columns: 1fr !important; /* Forzar una sola columna */
+        gap: 0.5rem;
+        padding: 0;
+    }
+
+    .competencia-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Centrar contenido */
+        text-align: center;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 0.8rem 0.5rem 1rem;
+        box-shadow: 0 4px 12px rgba(0, 20, 0, 0.06);
+        border: 1px solid #eaf3ea;
+        width: 100%;
+    }
+
+    .competencia-card img {
+        width: 100%;
+        max-width: 280px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 16px;
+        border: 2px solid #d4e8d4;
+        margin: 0 auto 0.4rem; /* Centrar horizontalmente */
+        display: block;
+    }
+}
+
+.competencia-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 1rem 0.8rem 1.2rem;
+    box-shadow: 0 4px 16px rgba(0, 20, 0, 0.06);
+    border: 1px solid #eaf3ea;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    width: 100%;
+    height: 100%;
+}
+
+.competencia-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 16px;
+    background: #e6f2e6;
+    border: 2px solid #eaf3ea;
+    transition: border-color 0.3s, transform 0.3s;
+    display: block;
+}
