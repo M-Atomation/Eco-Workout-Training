@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { cargo: 'Instructora de gimnasio', empresa: 'INCAP S.A.S', fecha: 'Oct 2021 – Dic 2021' },
         { cargo: 'Instructora de gimnasio', empresa: 'Colsubsidio', fecha: 'Jun 2019 – Jul 2020' },
         { cargo: 'Instructora de gimnasio', empresa: 'ATLANTIC POOLS INC.', fecha: 'Mar 2019 – Abr 2019' }
-        ];
+    ];
 
     /**
      * Renderiza la línea de tiempo en el DOM.
@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (pricingContainer) {
         pricingContainer.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Cargando planes...</div>`;
 
-        /**
-         * Parsea el texto CSV a un arreglo de objetos.
+       /**
+         * Parsea el texto CSV a un arreglo de objetos (Soporta múltiples formatos de línea).
          * @param {string} csvText - Texto en formato CSV.
          * @returns {Array} Arreglo de objetos parseados.
          */
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return result;
         }
-
+        
         /**
          * Renderiza las tarjetas de precios en el DOM.
          * @param {Array} data - Datos parseados del CSV.
