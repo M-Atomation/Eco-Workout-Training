@@ -614,7 +614,7 @@ body {
 }
 
 /* ================================================================
-   FOOTER (con logo SVG y redes sociales)
+   FOOTER
    ================================================================ */
 .main-footer {
     margin-top: 2.5rem;
@@ -652,13 +652,41 @@ body {
     transform: scale(1.15);
 }
 
-.footer-credit {
-    font-size: 0.8rem;
-    color: #5a7a5a;
-    margin-top: 0.5rem;
+.footer-divider {
+    border: 0;
+    border-top: 1px solid #d4e8d4;
+    max-width: 200px;
+    margin: 0.5rem auto 1rem;
+    opacity: 0.5;
 }
 
-.footer-credit a {
+.footer-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+}
+
+.footer-credit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+    color: #5a7a5a;
+    margin: 0;
+}
+
+.credit-text {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.credit-text a {
     color: #1e5e1e;
     text-decoration: none;
     font-weight: 500;
@@ -666,9 +694,56 @@ body {
     transition: border-color 0.2s, color 0.2s;
 }
 
-.footer-credit a:hover {
+.credit-text a:hover {
     color: #0f2b0f;
     border-bottom-color: #1e5e1e;
+}
+
+.github-badge {
+    background: #e6f2e6;
+    padding: 0.15rem 0.9rem;
+    border-radius: 40px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #1e5e1e;
+    border: 1px solid #cde0cd;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+}
+
+.github-badge:hover {
+    background: #d4e8d4;
+    color: #0f2b0f;
+}
+
+/* ================================================================
+   RESPONSIVE PARA FOOTER
+   ================================================================ */
+@media (max-width: 600px) {
+    .footer-logo {
+        max-width: 160px;
+    }
+    .footer-social {
+        font-size: 1.5rem;
+        gap: 1.2rem;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    .footer-credit {
+        flex-direction: column;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+    .github-badge {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.7rem;
+    }
+}1e;
 }
 
 /* ================================================================
