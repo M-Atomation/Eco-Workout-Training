@@ -211,20 +211,5 @@
 
     </main><!-- ===== SCRIPTS ===== -->
     <script src="js/script.js"></script>
-    <script>
-        (function() {
-            const yearSpan = document.getElementById('currentYear');
-            if (yearSpan) yearSpan.innerText = new Date().getFullYear();
-            function calcularAnios() {
-                const inicio = new Date(2011, 3, 1);
-                const hoy = new Date();
-                let años = hoy.getFullYear() - inicio.getFullYear();
-                if (hoy.getMonth() < inicio.getMonth() || (hoy.getMonth() === inicio.getMonth() && hoy.getDate() < inicio.getDate())) años--;
-                return años;
-            }
-            const exp = calcularAnios();
-            document.querySelectorAll('.auto-exp').forEach(el => el.textContent = exp);
-        })();
-    </script>
 </body>
 </html>
