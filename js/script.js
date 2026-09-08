@@ -103,8 +103,11 @@ document.addEventListener('DOMContentLoaded', function () {
          * @returns {Array} Arreglo de objetos parseados.
          */
         function parseCSV(csvText) {
-            const lines = csvText.split('\n');
+            // 1. Limpiamos espacios al inicio/final y separamos por saltos de línea (Windows/Mac/Linux)
+            const lines = csvText.trim().split(/\r?\n/);
+            
             if (lines.length < 2) return [];
+            
             const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
             const result = [];
             
@@ -126,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 row.push(current.trim());
                 
+                // Aseguramos que la fila tenga la misma cantidad de columnas que las cabeceras
                 if (row.length === headers.length) {
                     const obj = {};
                     headers.forEach((header, index) => {
