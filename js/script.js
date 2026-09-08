@@ -81,9 +81,11 @@ document.addEventListener('DOMContentLoaded', function () {
     renderTimeline(experienciaData);
 
     // ================================================================
-    // 3. PRECIOS DESDE GOOGLE SHEETS (CSV)
+    // 3. PRECIOS DESDE GOOGLE SHEETS (CSV) - URL CORREGIDA
     // ================================================================
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRN13ajUpkzJ5rQWFOcS9XNWm3vxNA5wlwVTrapwFiHzW3SJaCemdjrRec-rjB2a6u2Rq1HtFLdQmxTpub?output=csv&gid=1546839515&single=true';
+    // ✅ URL CORREGIDA: se agregó la barra "/" antes de "pub"
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRN13ajUpkzJ5rQWFOcS9XNWm3vxNA5wlwVTrapwFiHzW3SJaCemdjrRec-rjB2a6u2Rq1HtFLdQmxT/pub?output=csv&gid=1546839515&single=true';
+
     const pricingContainer = document.getElementById('pricing-container');
 
     if (pricingContainer) {
@@ -187,11 +189,10 @@ document.addEventListener('DOMContentLoaded', function () {
             { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.svg' }
         ];
 
-        let itemsPerSlide = 3; // por defecto
+        let itemsPerSlide = 3;
         let currentIndex = 0;
         let slides = [];
 
-        // Función para determinar el número de items por slide según el ancho
         function getItemsPerSlide() {
             if (window.innerWidth <= 600) return 1;
             if (window.innerWidth <= 850) return 2;
@@ -249,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 track.appendChild(slideDiv);
             });
 
-            // Crear dots
             for (let i = 0; i < slides.length; i++) {
                 const dot = document.createElement('button');
                 dot.className = 'dot';
@@ -259,7 +259,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 dotsContainer.appendChild(dot);
             }
 
-            // Resetear índice si es necesario
             if (currentIndex >= slides.length) currentIndex = slides.length - 1;
             if (currentIndex < 0) currentIndex = 0;
             updateCarousel();
@@ -286,7 +285,6 @@ document.addEventListener('DOMContentLoaded', function () {
         prevBtn.addEventListener('click', prevSlide);
         nextBtn.addEventListener('click', nextSlide);
 
-        // Auto-play
         let autoPlayInterval = null;
         function startAutoPlay() {
             if (autoPlayInterval) clearInterval(autoPlayInterval);
@@ -309,23 +307,18 @@ document.addEventListener('DOMContentLoaded', function () {
             carouselContainer.addEventListener('touchend', startAutoPlay);
         }
 
-        // Inicializar
         renderCarousel();
         startAutoPlay();
 
-        // Reconstruir al cambiar el tamaño de la ventana (debounce)
         let resizeTimeout;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 const newItemsPerSlide = getItemsPerSlide();
-                // Solo reconstruir si cambia el número de items por slide
                 if (newItemsPerSlide !== itemsPerSlide) {
                     itemsPerSlide = newItemsPerSlide;
-                    // Guardar el índice actual para intentar mantener la posición
                     const currentItem = currentIndex * itemsPerSlide;
                     renderCarousel();
-                    // Ajustar al slide que contiene el item actual
                     const newIndex = Math.min(Math.floor(currentItem / getItemsPerSlide()), slides.length - 1);
                     goToSlide(newIndex);
                 }
