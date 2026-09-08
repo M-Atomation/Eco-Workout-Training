@@ -641,6 +641,27 @@ body {
     margin-top: 0.2rem;
 }
 
+/* ===== FOOTER CRÉDITO ===== */
+.footer-credit {
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: #5a7a5a;
+}
+
+.footer-credit a {
+    color: #1e5e1e;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.footer-credit a:hover {
+    color: #0f2b0f;
+    border-bottom-color: #1e5e1e;
+}
+
+
 /* ================================================================
    RESPONSIVE
    ================================================================ */
