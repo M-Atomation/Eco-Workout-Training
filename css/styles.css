@@ -541,7 +541,7 @@ body {
 
 .competencia-card img {
     width: 100%;
-    max-width: 200px;  /* Tamaño controlado para que no se desborde */
+    max-width: 200px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 16px;
@@ -549,7 +549,7 @@ body {
     border: 2px solid #eaf3ea;
     transition: border-color 0.3s, transform 0.3s;
     display: block;
-    margin: 0 auto 0.5rem auto; /* Centrar horizontalmente */
+    margin: 0 auto 0.5rem auto;
 }
 
 .competencia-card img:hover {
@@ -691,7 +691,7 @@ body {
     }
 }
 
-/* Móviles: 1 columna con imagen grande y centrada */
+/* ===== MÓVILES: CORREGIDO (centrado y una columna) ===== */
 @media (max-width: 600px) {
     .carousel-container {
         padding: 1rem 0.2rem 1rem;
@@ -702,13 +702,18 @@ body {
         margin: 0 0.5rem;
     }
 
+    /* Convertir slide a flex para centrar la tarjeta */
     .carousel-slide {
-        grid-template-columns: 1fr !important; /* Forzar una sola columna */
-        gap: 0.5rem;
+        display: flex !important;
+        justify-content: center;
         padding: 0;
+        gap: 0;
     }
 
     .competencia-card {
+        max-width: 320px;
+        width: 100%;
+        margin: 0 auto;
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -718,14 +723,11 @@ body {
         padding: 0.8rem 0.5rem 1rem;
         box-shadow: 0 4px 12px rgba(0, 20, 0, 0.06);
         border: 1px solid #eaf3ea;
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
     }
 
     .competencia-card img {
-        width: 100%;
         max-width: 250px;
+        width: 100%;
         aspect-ratio: 1 / 1;
         object-fit: cover;
         border-radius: 16px;
@@ -743,8 +745,8 @@ body {
     }
 
     .competencia-card .no-img {
-        width: 100%;
         max-width: 250px;
+        width: 100%;
         aspect-ratio: 1 / 1;
         border-radius: 16px;
         font-size: 3rem;
@@ -833,6 +835,20 @@ body {
     color: #3d6b3d;
     padding: 1rem 0;
     font-size: 1rem;
+}
+
+/* ===== MÓVILES: PRECIOS EN UNA SOLA COLUMNA (vertical) ===== */
+@media (max-width: 600px) {
+    #pricing-container {
+        grid-template-columns: 1fr !important;
+        gap: 0.8rem;
+    }
+    .pricing-card {
+        padding: 1.2rem 0.8rem;
+    }
+    .pricing-card .price {
+        font-size: 1.5rem;
+    }
 }
 
 /* ================================================================
@@ -1282,19 +1298,6 @@ body {
 
     .especialidad-icon i {
         font-size: 1.8rem;
-    }
-
-    #pricing-container {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.8rem;
-    }
-
-    .pricing-card {
-        padding: 1.2rem 0.8rem;
-    }
-
-    .pricing-card .price {
-        font-size: 1.5rem;
     }
 
     .cert-grid {
