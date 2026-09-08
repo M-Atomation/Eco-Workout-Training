@@ -282,13 +282,32 @@
 
         <!-- ===== FOOTER ===== -->
         <footer class="main-footer">
+            <div class="container">
+            <div class="footer-copyright"><span>©</span><span id="currentYear"></span><span>—</span><span></span> 
             <p>🌿 EcoWorkout · Cambiando la Rutina! · <strong>@eco_workout_training</strong></p>
-            <p class="footer-small">Entrenamiento físico y deportivo · Consultorías</p>
+            <p class="footer-small">Entrenamiento físico y deportivo · Consultorías</p><span>—</span><span>GitHub Page</span></div>
+        </div>
         </footer>
 
     </main>
 
     <!-- ===== SCRIPTS ===== -->
     <script src="js/script.js"></script>
+    <script>
+        (function() {
+            const yearSpan = document.getElementById('currentYear');
+            if (yearSpan) yearSpan.innerText = new Date().getFullYear();
+            function calcularAnios() {
+                const inicio = new Date(2011, 3, 1);
+                const hoy = new Date();
+                let años = hoy.getFullYear() - inicio.getFullYear();
+                if (hoy.getMonth() < inicio.getMonth() || (hoy.getMonth() === inicio.getMonth() && hoy.getDate() < inicio.getDate())) años--;
+                return años;
+            }
+            const exp = calcularAnios();
+            document.querySelectorAll('.auto-exp').forEach(el => el.textContent = exp);
+        })();
+    </script>
+</body>
 </body>
 </html>
