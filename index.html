@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adriana Castañeda · Personal & Sport Trainer</title>
 
-    <!-- Favicon en SVG -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 
     <!-- Fuentes e Íconos -->
@@ -20,12 +20,10 @@
 <body>
 
     <!-- ============================================================ -->
-    <!-- HEADER FIJO (STICKY) - SIN REDES SOCIALES                    -->
+    <!-- HEADER FIJO CON MENÚ HAMBURGUESA                              -->
     <!-- ============================================================ -->
     <header class="main-header" id="mainHeader">
         <div class="header-container">
-
-            <!-- Logo y nombre -->
             <div class="header-brand">
                 <a href="#sobre-mi" class="brand-link">
                     <img src="assets/logo_solo.svg" alt="EcoWorkout Logo" />
@@ -33,10 +31,9 @@
                 </a>
             </div>
 
-            <!-- Navegación principal -->
             <nav class="header-nav" id="mainNav">
                 <ul>
-                    <li><a href="#sobre-mi">Sobre mí</a></li>                    
+                    <li><a href="#sobre-mi">Sobre mí</a></li>
                     <li><a href="#experiencia">Experiencia</a></li>
                     <li><a href="#estudios">Estudios</a></li>
                     <li><a href="#certificados">Certificados</a></li>
@@ -45,13 +42,11 @@
                 </ul>
             </nav>
 
-            <!-- Botón hamburguesa (sin redes) -->
             <div class="header-actions">
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
-
         </div>
     </header>
 
@@ -64,7 +59,7 @@
         <section id="sobre-mi" class="section">
             <div class="profile-card">
                 <div class="profile-avatar">
-                    <img src="assets/Foto perfil Entrenadora.svg" alt="Adriana Castañeda" />
+                    <img src="assets/Foto perfil Entrenadora.png" alt="Adriana Castañeda" />
                 </div>
                 <div class="profile-info">
                     <h1>Adriana Castañeda García</h1>
@@ -84,35 +79,16 @@
             </div>
         </section>
 
-        <!-- ===== SECCIÓN: EXPERIENCIA (Línea de tiempo) ===== -->
+        <!-- ===== SECCIÓN: EXPERIENCIA (Línea de tiempo híbrida) ===== -->
         <section id="experiencia" class="section">
             <h2 class="section-title"><span>Experiencia</span></h2>
-            <div class="timeline">
-                <!-- Item 1 -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Instructora de gimnasio</h3>
-                            <span class="company">Ecos del deporte</span>
-                            <span class="timeline-date">Mar 2026 – Jun 2026</span>
-                        </div>
-                        <p>Diseño y ejecución de programas personalizados y grupales en musculación, fuerza funcional y TRX, complementados con asesoría básica en nutrición deportiva, especialización en adaptación creativa de rutinas según objetivos físicos, perfiles de usuarios, recursos disponibles y estrategias lúdicas para adherencia al ejercicio.</p>
-                    </div>
+            <div class="timeline-wrapper">
+                <div class="timeline-horizontal" id="timelineHorizontal">
+                    <!-- Generado por JS para mantener el orden cronológico -->
                 </div>
-                <!-- Item 2 -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Instructora de gimnasio</h3>
-                            <span class="company">Colsubsidio</span>
-                            <span class="timeline-date">May 2023 – Ene 2026</span>
-                        </div>
-                        <p>Diseño y ejecución de programas personalizados y grupales en musculación, fuerza funcional y TRX, complementados con asesoría básica en nutrición deportiva, especialización en adaptación creativa de rutinas según objetivos físicos, perfiles de usuarios, recursos disponibles y estrategias lúdicas para adherencia al ejercicio.</p>
-                    </div>
+                <div class="timeline-vertical" id="timelineVertical">
+                    <!-- Generado por JS para móviles -->
                 </div>
-                <!-- (Resto de ítems de experiencia... incluir todos) -->
             </div>
         </section>
 
@@ -137,7 +113,42 @@
         <section id="certificados" class="section">
             <h2 class="section-title"><span>Certificados y Cursos</span></h2>
             <div class="cert-grid">
-                <!-- (Todos los certificados con iconos) -->
+                <div class="cert-card">
+                    <i class="fas fa-futbol"></i>
+                    <span>Cultura de Paz y Convivencia en el Fútbol – MinDeporte (Jul 2025)</span>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-users"></i>
+                    <span>Juegos Nacionales Deportivos y Recreativos Comunales – MinDeporte (Jul 2025)</span>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Fundamentos de Administración Deportiva – MinDeporte (May 2025)</span>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Promoción de Actividad Física para Jóvenes – MinDeporte (Jun 2025)</span>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-water"></i>
+                    <span>Salvavidas de Piscina Respuesta por Extensión – Esc. Colombiana de Seguridad Acuática (Sep 2022)</span>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Modelos de Planificación Deportiva – SENA (Jun 2021)</span>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Liderazgo en la Actividad Deportiva y la Recreación – SENA (Jun 2021)</span>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>Cualidades Físicas en el Entrenamiento Deportivo – SENA (May 2021)</span>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-apple-alt"></i>
+                    <span>Hábitos y Estilos de Vida Saludables – OEI (Mar 2021)</span>
+                </div>
             </div>
         </section>
 
@@ -148,73 +159,106 @@
                 <div class="carousel-track-wrapper">
                     <div class="carousel-track" id="carouselTrack"></div>
                 </div>
-                <button class="carousel-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                <button class="carousel-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                <button class="carousel-btn prev-btn" id="prevBtn" aria-label="Anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next-btn" id="nextBtn" aria-label="Siguiente">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
                 <div class="carousel-dots" id="carouselDots"></div>
             </div>
         </section>
 
-        <!-- ===== SECCIÓN: Eco Workout (Precios) ===== -->
+        <!-- ===== SECCIÓN: Eco Workout ===== -->
         <section id="eco-workout" class="section">
             <h2 class="section-title"><span>Planes y precios de entrenamientos personalizados</span></h2>
             <div id="pricing-container">
                 <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Cargando planes...</div>
             </div>
-            <!-- Botón de WhatsApp -->
+
+            <!-- Especialidades -->
+            <div class="especialidades-wrapper">
+                <h3 class="especialidades-title">✨ ¿Qué ofrezco en cada plan?</h3>
+                <div class="especialidades-grid">
+                    <div class="especialidad-card">
+                        <div class="especialidad-icon"><i class="fas fa-dumbbell"></i></div>
+                        <h4>Entrenamiento Personalizado</h4>
+                        <p>Rutinas a medida combinando musculación, fuerza funcional y TRX, adaptadas a tus objetivos y recursos.</p>
+                    </div>
+                    <div class="especialidad-card">
+                        <div class="especialidad-icon"><i class="fas fa-apple-alt"></i></div>
+                        <h4>Asesoría Nutricional</h4>
+                        <p>Pautas básicas y realistas para potenciar resultados, acelerar la recuperación y mejorar hábitos.</p>
+                    </div>
+                    <div class="especialidad-card">
+                        <div class="especialidad-icon"><i class="fas fa-gamepad"></i></div>
+                        <h4>Estrategias Lúdicas</h4>
+                        <p>Juegos y dinámicas que convierten el ejercicio en un hábito placentero, aumentando la adherencia.</p>
+                    </div>
+                    <div class="especialidad-card">
+                        <div class="especialidad-icon"><i class="fas fa-water"></i></div>
+                        <h4>Salvamento Acuático</h4>
+                        <p>Coordinación de seguridad en piscinas, protocolos de salvamento y mantenimiento para entornos seguros.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WhatsApp CTA -->
             <div class="whatsapp-cta">
-                <a href="https://api.whatsapp.com/send/?phone=573142892953&text=Estimada%2C%0A%0AVi%20su%20página%20web%20y%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20sus%20entrenamientos%20personalizados.%20%C2%BFPodr%C3%ADa%20darme%20m%C3%A1s%20detalles%3F" 
-                   target="_blank" 
+                <a href="https://api.whatsapp.com/send/?phone=573142892953&text=Estimada%2C%0A%0AVi%20su%20página%20web%20y%20deseo%20solicitar%20informaci%C3%B3n%20sobre%20sus%20entrenamientos%20personalizados.%20%C2%BFPodr%C3%ADa%20darme%20m%C3%A1s%20detalles%3F"
+                   target="_blank"
                    class="btn-whatsapp">
                     <i class="fab fa-whatsapp"></i> ¡Empieza tu Transformación! Escríbeme
                 </a>
             </div>
         </section>
 
-            <!-- ============================================================ -->
-        <!-- FOOTER                                                       -->
-        <!-- ============================================================ -->
-        <footer class="main-footer">
-            <!-- Logo SVG -->
-            <div class="footer-logo">
-                <img src="assets/logo_full2.svg" alt="EcoWorkout - Cambiando la Rutina!" />
-            </div>
+    </main>
 
-            <!-- Redes Sociales -->
-            <div class="footer-social">
-                <a href="https://www.instagram.com/eco_workout_training/" target="_blank" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/personal-y-sport-trainer-adriana-castaneda-garcia/" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://www.superprof.co/entrena-conmigo-personaliza-tus-objetivos-fortalece-tonifica-transforma-cuerpo-disfrutando-cada-entrenamiento.html" target="_blank" aria-label="Superprof">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </a>
-                <a href="https://www.youtube.com/@ecoworkouttraining1003" target="_blank" aria-label="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
+    <!-- ============================================================ -->
+    <!-- FOOTER                                                       -->
+    <!-- ============================================================ -->
+    <footer class="main-footer">
+        <div class="footer-logo">
+            <img src="assets/logo_full2.svg" alt="EcoWorkout - Cambiando la Rutina!" />
+        </div>
 
-            <!-- Línea divisoria opcional -->
-            <hr class="footer-divider" />
+        <div class="footer-social">
+            <a href="https://www.instagram.com/eco_workout_training/" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/personal-y-sport-trainer-adriana-castaneda-garcia/" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.superprof.co/entrena-conmigo-personaliza-tus-objetivos-fortalece-tonifica-transforma-cuerpo-disfrutando-cada-entrenamiento.html" target="_blank" aria-label="Superprof">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </a>
+            <a href="https://www.youtube.com/@ecoworkouttraining1003" target="_blank" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="mailto:ecoworkouttraining@gmail.com" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
 
-            <!-- Crédito de diseño con año dinámico y GitHub Page -->
-            <div class="footer-bottom">
-                <p class="footer-credit">
-                    <span class="credit-text">
-                        <span>©</span><span id="currentYear"></span><span> — </span>
-                        Diseño y desarrollo por 
-                        <a href="https://m-atomation.github.io/Portafolio/" target="_blank" rel="noopener noreferrer">
-                            Mario Alberto Acosta Prieto
-                        </a>
-                        🚀
-                    </span>
-                    <span class="github-badge">GitHub Page</span>
-                </p>
-            </div>
-        </footer>
+        <hr class="footer-divider" />
 
-    </main><!-- ===== SCRIPTS ===== -->
+        <div class="footer-bottom">
+            <p class="footer-credit">
+                <span class="credit-text">
+                    <span>©</span><span id="currentYear"></span><span> — </span>
+                    Diseño y desarrollo por
+                    <a href="https://m-atomation.github.io/Portafolio/" target="_blank" rel="noopener noreferrer">
+                        Mario Alberto Acosta Prieto
+                    </a>
+                    🚀
+                </span>
+                <span class="github-badge">GitHub Page</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
     <script src="js/script.js"></script>
 </body>
 </html>
