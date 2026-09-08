@@ -484,7 +484,7 @@ body {
 }
 
 /* ================================================================
-   8. CARRUSEL DE COMPETENCIAS (REDISEÑADO Y UNIFICADO)
+   8. CARRUSEL DE COMPETENCIAS - CORREGIDO Y CENTRADO
    ================================================================ */
 .carousel-container {
     position: relative;
@@ -516,10 +516,12 @@ body {
     padding: 0.2rem;
 }
 
+/* Tarjetas de competencias - BASE (centrado absoluto) */
 .competencia-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     background: #ffffff;
     border-radius: 20px;
@@ -527,6 +529,8 @@ body {
     box-shadow: 0 4px 16px rgba(0, 20, 0, 0.06);
     border: 1px solid #eaf3ea;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    height: 100%;
+    width: 100%;
 }
 
 .competencia-card:hover {
@@ -537,12 +541,15 @@ body {
 
 .competencia-card img {
     width: 100%;
+    max-width: 200px;  /* Tamaño controlado para que no se desborde */
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 16px;
     background: #e6f2e6;
     border: 2px solid #eaf3ea;
     transition: border-color 0.3s, transform 0.3s;
+    display: block;
+    margin: 0 auto 0.5rem auto; /* Centrar horizontalmente */
 }
 
 .competencia-card img:hover {
@@ -551,12 +558,12 @@ body {
 }
 
 .competencia-card .slide-title {
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
     font-weight: 600;
     font-size: 0.9rem;
     color: #0f2b0f;
     line-height: 1.3;
-    max-width: 100%;
+    max-width: 90%;
     word-break: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -566,6 +573,7 @@ body {
 
 .competencia-card .no-img {
     width: 100%;
+    max-width: 200px;
     aspect-ratio: 1 / 1;
     background: #e6f2e6;
     border-radius: 16px;
@@ -575,6 +583,7 @@ body {
     font-size: 3rem;
     color: #2b7a2b;
     border: 2px solid #d4e8d4;
+    margin: 0 auto 0.5rem auto;
 }
 
 /* Botones de navegación */
@@ -655,6 +664,9 @@ body {
     .competencia-card .slide-title {
         font-size: 1rem;
     }
+    .competencia-card img {
+        max-width: 220px;
+    }
 }
 
 /* Tablets: 2 columnas */
@@ -674,9 +686,12 @@ body {
     .competencia-card {
         padding: 0.8rem 0.6rem 1rem;
     }
+    .competencia-card img {
+        max-width: 180px;
+    }
 }
 
-/* Móviles: 1 columna */
+/* Móviles: 1 columna con imagen grande y centrada */
 @media (max-width: 600px) {
     .carousel-container {
         padding: 1rem 0.2rem 1rem;
@@ -688,7 +703,7 @@ body {
     }
 
     .carousel-slide {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important; /* Forzar una sola columna */
         gap: 0.5rem;
         padding: 0;
     }
@@ -696,22 +711,27 @@ body {
     .competencia-card {
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         text-align: center;
         background: #ffffff;
         border-radius: 16px;
         padding: 0.8rem 0.5rem 1rem;
         box-shadow: 0 4px 12px rgba(0, 20, 0, 0.06);
         border: 1px solid #eaf3ea;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
     }
 
     .competencia-card img {
         width: 100%;
-        max-width: 280px;
+        max-width: 250px;
         aspect-ratio: 1 / 1;
         object-fit: cover;
         border-radius: 16px;
         border: 2px solid #d4e8d4;
-        margin-bottom: 0.4rem;
+        margin: 0 auto 0.4rem auto;
+        display: block;
     }
 
     .competencia-card .slide-title {
@@ -724,7 +744,7 @@ body {
 
     .competencia-card .no-img {
         width: 100%;
-        max-width: 280px;
+        max-width: 250px;
         aspect-ratio: 1 / 1;
         border-radius: 16px;
         font-size: 3rem;
@@ -733,7 +753,7 @@ body {
         justify-content: center;
         background: #e6f2e6;
         border: 2px solid #d4e8d4;
-        margin-bottom: 0.4rem;
+        margin: 0 auto 0.4rem auto;
     }
 
     .carousel-btn {
@@ -759,44 +779,53 @@ body {
 }
 
 /* ================================================================
-   9. PRECIOS
+   9. PRECIOS - MEJORADO Y UNIFORME
    ================================================================ */
 #pricing-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.2rem;
+    gap: 1.5rem;
+    margin: 0.5rem 0;
 }
 
 .pricing-card {
     background: #f5faf5;
     border: 1px solid #d4e8d4;
-    border-radius: 16px;
-    padding: 1.5rem 1.2rem;
+    border-radius: 20px;
+    padding: 1.8rem 1.2rem;
     text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    box-shadow: 0 2px 8px rgba(0, 20, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .pricing-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px -8px rgba(0, 40, 0, 0.12);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px -8px rgba(0, 40, 0, 0.10);
+    border-color: #2b7a2b;
 }
 
 .pricing-card h4 {
     font-size: 1.1rem;
+    font-weight: 600;
     color: #0f2b0f;
     margin-bottom: 0.3rem;
 }
 
 .pricing-card .price {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     font-weight: 700;
     color: #1e5e1e;
+    margin: 0.2rem 0;
 }
 
 .pricing-card .desc {
     font-size: 0.8rem;
     color: #4a6a4a;
-    margin-top: 0.2rem;
+    margin-top: 0.3rem;
 }
 
 .loading-spinner {
@@ -1261,11 +1290,11 @@ body {
     }
 
     .pricing-card {
-        padding: 1rem 0.8rem;
+        padding: 1.2rem 0.8rem;
     }
 
     .pricing-card .price {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 
     .cert-grid {
@@ -1331,64 +1360,4 @@ body {
         align-items: center;
         gap: 0.6rem;
     }
-}
-
-@media (max-width: 600px) {
-    .carousel-slide {
-        grid-template-columns: 1fr !important; /* Forzar una sola columna */
-        gap: 0.5rem;
-        padding: 0;
-    }
-
-    .competencia-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center; /* Centrar contenido */
-        text-align: center;
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 0.8rem 0.5rem 1rem;
-        box-shadow: 0 4px 12px rgba(0, 20, 0, 0.06);
-        border: 1px solid #eaf3ea;
-        width: 100%;
-    }
-
-    .competencia-card img {
-        width: 100%;
-        max-width: 280px;
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        border-radius: 16px;
-        border: 2px solid #d4e8d4;
-        margin: 0 auto 0.4rem; /* Centrar horizontalmente */
-        display: block;
-    }
-}
-
-.competencia-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 1rem 0.8rem 1.2rem;
-    box-shadow: 0 4px 16px rgba(0, 20, 0, 0.06);
-    border: 1px solid #eaf3ea;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    width: 100%;
-    height: 100%;
-}
-
-.competencia-card img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 16px;
-    background: #e6f2e6;
-    border: 2px solid #eaf3ea;
-    transition: border-color 0.3s, transform 0.3s;
-    display: block;
 }
