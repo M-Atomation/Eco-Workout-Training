@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ================================================================
-    // 4. CARRUSEL DE COMPETENCIAS (RESPONSIVO)
+    // 4. CARRUSEL DE COMPETENCIAS (RESPONSIVO) - CON RUTAS JPG
     // ================================================================
     const track = document.getElementById('carouselTrack');
     const prevBtn = document.getElementById('prevBtn');
@@ -173,18 +173,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const dotsContainer = document.getElementById('carouselDots');
 
     if (track && prevBtn && nextBtn && dotsContainer) {
+        // ✅ RUTAS CORREGIDAS: .jpg en lugar de .svg
         const competenciasData = [
-            { nombre: 'Corre como el viento (FAC)', img: 'assets/competitions/corre-viento.svg' },
-            { nombre: 'Carrera por la Policía', img: 'assets/competitions/carrera-policia.svg' },
-            { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competitions/batalla-ayacucho.svg' },
-            { nombre: 'Bimbo global Racer', img: 'assets/competitions/bimbo-global.svg' },
-            { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competitions/festival-cross.svg' },
-            { nombre: 'Campeonato distrital', img: 'assets/competitions/campeonato-distrital.svg' },
-            { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competitions/ruta-fucsia.svg' },
-            { nombre: 'MMB 10K', img: 'assets/competitions/mmb10k.svg' },
-            { nombre: 'NatGeo 10K', img: 'assets/competitions/natgeo10k.svg' },
-            { nombre: 'Carrera de la Mujer 10K', img: 'assets/competitions/mujer10k.svg' },
-            { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.svg' }
+            { nombre: 'Corre como el viento (FAC)', img: 'assets/competitions/corre-viento.jpg' },
+            { nombre: 'Carrera por la Policía', img: 'assets/competitions/carrera-policia.jpg' },
+            { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competitions/batalla-ayacucho.jpg' },
+            { nombre: 'Bimbo global Racer', img: 'assets/competitions/bimbo-global.jpg' },
+            { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competitions/festival-cross.jpg' },
+            { nombre: 'Campeonato distrital', img: 'assets/competitions/campeonato-distrital.jpg' },
+            { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competitions/ruta-fucsia.jpg' },
+            { nombre: 'MMB 10K', img: 'assets/competitions/mmb10k.jpg' },
+            { nombre: 'NatGeo 10K', img: 'assets/competitions/natgeo10k.jpg' },
+            { nombre: 'Carrera de la Mujer 10K', img: 'assets/competitions/mujer10k.jpg' },
+            { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.jpg' }
         ];
 
         let itemsPerSlide = getItemsPerSlide();
@@ -249,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 track.appendChild(slideDiv);
             });
 
-            // Dots
             for (let i = 0; i < slides.length; i++) {
                 const dot = document.createElement('button');
                 dot.className = 'dot';
@@ -285,7 +285,6 @@ document.addEventListener('DOMContentLoaded', function () {
         prevBtn.addEventListener('click', prevSlide);
         nextBtn.addEventListener('click', nextSlide);
 
-        // Auto-play
         let autoPlayInterval = null;
         function startAutoPlay() {
             if (autoPlayInterval) clearInterval(autoPlayInterval);
@@ -308,11 +307,9 @@ document.addEventListener('DOMContentLoaded', function () {
             carouselContainer.addEventListener('touchend', startAutoPlay);
         }
 
-        // Inicializar
         renderCarousel();
         startAutoPlay();
 
-        // Reconstruir al redimensionar (debounce)
         let resizeTimeout;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
