@@ -246,3 +246,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 150);
     });
 });
+
+// ================================================================
+// 4. ACTUALIZAR AÑO AUTOMÁTICAMENTE EN EL FOOTER
+// ================================================================
+(function() {
+    const yearSpan = document.getElementById('currentYear');
+    if (yearSpan) {
+        yearSpan.innerText = new Date().getFullYear();
+    }
+})();
