@@ -28,26 +28,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2. PRECIOS DESDE GOOGLE SHEETS (VÍA CSV PÚBLICO)
     // ================================================================
 
-    // ✅ URL pública en formato CSV (obtenida de Archivo > Publicar en la web)
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRN13ajUpkzJ5rQWFOcS9XNWm3vxNA5wlwVTrapwFiHzW3SJaCemdjrRec-rjB2a6u2Rq1HtFLdQmxT/pub?output=csv&gid=1546839515&single=true';
 
     const pricingContainer = document.getElementById('pricing-container');
 
-    // Mostrar mensaje de carga
     pricingContainer.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Cargando planes...</div>`;
 
-    // Función para parsear CSV a array de objetos
     function parseCSV(csvText) {
         const lines = csvText.split('\n');
         if (lines.length < 2) return [];
-
-        // Obtener encabezados (primera fila)
         const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-
         const result = [];
         for (let i = 1; i < lines.length; i++) {
             if (!lines[i].trim()) continue;
-            // Manejar campos con comillas
             const row = [];
             let current = '';
             let insideQuotes = false;
@@ -62,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
             row.push(current.trim());
-
             if (row.length === headers.length) {
                 const obj = {};
                 headers.forEach((header, index) => {
@@ -74,21 +66,17 @@ document.addEventListener('DOMContentLoaded', function () {
         return result;
     }
 
-    // Función para renderizar las tarjetas de precios
     function renderPricingFromCSV(data) {
         if (!data || data.length === 0) {
             pricingContainer.innerHTML = '<p style="color: #4a6a4a;">No hay planes disponibles. Contáctame directamente.</p>';
             return;
         }
-
         let html = '';
         data.forEach(row => {
-            // Detectamos automáticamente las columnas
             const keys = Object.keys(row);
             const plan = row[keys[0]] || 'Plan';
             const precio = row[keys[1]] || '';
             const desc = row[keys[2]] || '';
-
             html += `
                 <div class="pricing-card">
                     <h4>${plan}</h4>
@@ -97,11 +85,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             `;
         });
-
         pricingContainer.innerHTML = html || '<p style="color: #4a6a4a;">No se encontraron datos.</p>';
     }
 
-    // Cargar el CSV
     fetch(CSV_URL)
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -131,17 +117,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const dotsContainer = document.getElementById('carouselDots');
 
     const competenciasData = [
-        { nombre: 'Corre como el viento (FAC)', img: 'assets/competencias/corre-viento.jpg' },
-        { nombre: 'Carrera por la Policía', img: 'assets/competencias/carrera-policia.jpg' },
-        { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competencias/batalla-ayacucho.jpg' },
-        { nombre: 'Bimbo global Racer', img: 'assets/competencias/bimbo-global.jpg' },
-        { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competencias/festival-cross.jpg' },
-        { nombre: 'Campeonato distrital', img: 'assets/competencias/campeonato-distrital.jpg' },
-        { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competencias/ruta-fucsia.jpg' },
-        { nombre: 'MMB 10K', img: 'assets/competencias/mmb10k.jpg' },
-        { nombre: 'NatGeo 10K', img: 'assets/competencias/natgeo10k.jpg' },
-        { nombre: 'Carrera de la Mujer 10K', img: 'assets/competencias/mujer10k.jpg' },
-        { nombre: 'Carrera verde', img: 'assets/competencias/carrera-verde.jpg' }
+        { nombre: 'Corre como el viento (FAC)', img: 'assets/competencias/corre-viento.svg' },
+        { nombre: 'Carrera por la Policía', img: 'assets/competencias/carrera-policia.svg' },
+        { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competencias/batalla-ayacucho.svg' },
+        { nombre: 'Bimbo global Racer', img: 'assets/competencias/bimbo-global.svg' },
+        { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competencias/festival-cross.svg' },
+        { nombre: 'Campeonato distrital', img: 'assets/competencias/campeonato-distrital.svg' },
+        { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competencias/ruta-fucsia.svg' },
+        { nombre: 'MMB 10K', img: 'assets/competencias/mmb10k.svg' },
+        { nombre: 'NatGeo 10K', img: 'assets/competencias/natgeo10k.svg' },
+        { nombre: 'Carrera de la Mujer 10K', img: 'assets/competencias/mujer10k.svg' },
+        { nombre: 'Carrera verde', img: 'assets/competencias/carrera-verde.svg' }
     ];
 
     const ITEMS_PER_SLIDE = 3;
