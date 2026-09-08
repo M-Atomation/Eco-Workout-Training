@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ================================================================
     // 3. PRECIOS DESDE GOOGLE SHEETS (CSV)
     // ================================================================
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRN13ajUpkzJ5rQWFOcS9XNWm3vxNA5wlwVTrapwFiHzW3SJaCemdjrRec-rjB2a6u2Rq1HtFLdQmxT/pub?output=csv&gid=1546839515&single=true';
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRN13ajUpkzJ5rQWFOcS9XNWm3vxNA5wlwVTrapwFiHzW3SJaCemdjrRec-rjB2a6u2Rq1HtFLdQmxTpub?output=csv&gid=1546839515&single=true';
     
     const pricingContainer = document.getElementById('pricing-container');
 
