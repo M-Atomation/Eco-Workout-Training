@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // 3. PRECIOS DESDE GOOGLE SHEETS (CSV)
     // ================================================================
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRN13ajUpkzJ5rQWFOcS9XNWm3vxNA5wlwVTrapwFiHzW3SJaCemdjrRec-rjB2a6u2Rq1HtFLdQmxTpub?output=csv&gid=1546839515&single=true';
-    
     const pricingContainer = document.getElementById('pricing-container');
 
     if (pricingContainer) {
@@ -166,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ================================================================
-    // 4. CARRUSEL DE COMPETENCIAS (RESPONSIVO) - CON RUTAS JPG
+    // 4. CARRUSEL DE COMPETENCIAS (RESPONSIVO)
     // ================================================================
     const track = document.getElementById('carouselTrack');
     const prevBtn = document.getElementById('prevBtn');
@@ -175,27 +174,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (track && prevBtn && nextBtn && dotsContainer) {
         const competenciasData = [
-            { nombre: 'Corre como el viento (FAC)', img: 'assets/competitions/corre-viento.jpg' },
-            { nombre: 'Carrera por la Policía', img: 'assets/competitions/carrera-policia.jpg' },
-            { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competitions/batalla-ayacucho.jpg' },
-            { nombre: 'Bimbo global Racer', img: 'assets/competitions/bimbo-global.jpg' },
-            { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competitions/festival-cross.jpg' },
-            { nombre: 'Campeonato distrital', img: 'assets/competitions/campeonato-distrital.jpg' },
-            { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competitions/ruta-fucsia.jpg' },
-            { nombre: 'MMB 10K', img: 'assets/competitions/mmb10k.jpg' },
-            { nombre: 'NatGeo 10K', img: 'assets/competitions/natgeo10k.jpg' },
-            { nombre: 'Carrera de la Mujer 10K', img: 'assets/competitions/mujer10k.jpg' },
-            { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.jpg' }
+            { nombre: 'Corre como el viento (FAC)', img: 'assets/competitions/corre-viento.svg' },
+            { nombre: 'Carrera por la Policía', img: 'assets/competitions/carrera-policia.svg' },
+            { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competitions/batalla-ayacucho.svg' },
+            { nombre: 'Bimbo global Racer', img: 'assets/competitions/bimbo-global.svg' },
+            { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competitions/festival-cross.svg' },
+            { nombre: 'Campeonato distrital', img: 'assets/competitions/campeonato-distrital.svg' },
+            { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competitions/ruta-fucsia.svg' },
+            { nombre: 'MMB 10K', img: 'assets/competitions/mmb10k.svg' },
+            { nombre: 'NatGeo 10K', img: 'assets/competitions/natgeo10k.svg' },
+            { nombre: 'Carrera de la Mujer 10K', img: 'assets/competitions/mujer10k.svg' },
+            { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.svg' }
         ];
 
-        let itemsPerSlide = getItemsPerSlide();
+        let itemsPerSlide = 3; // por defecto
         let currentIndex = 0;
         let slides = [];
 
+        // Función para determinar el número de items por slide según el ancho
         function getItemsPerSlide() {
-            const width = window.innerWidth;
-            if (width <= 600) return 1;
-            if (width <= 850) return 2;
+            if (window.innerWidth <= 600) return 1;
+            if (window.innerWidth <= 850) return 2;
             return 3;
         }
 
@@ -250,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 track.appendChild(slideDiv);
             });
 
+            // Crear dots
             for (let i = 0; i < slides.length; i++) {
                 const dot = document.createElement('button');
                 dot.className = 'dot';
@@ -259,6 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 dotsContainer.appendChild(dot);
             }
 
+            // Resetear índice si es necesario
             if (currentIndex >= slides.length) currentIndex = slides.length - 1;
             if (currentIndex < 0) currentIndex = 0;
             updateCarousel();
@@ -285,11 +286,12 @@ document.addEventListener('DOMContentLoaded', function () {
         prevBtn.addEventListener('click', prevSlide);
         nextBtn.addEventListener('click', nextSlide);
 
+        // Auto-play
         let autoPlayInterval = null;
         function startAutoPlay() {
             if (autoPlayInterval) clearInterval(autoPlayInterval);
             if (slides.length > 1) {
-                autoPlayInterval = setInterval(nextSlide, 4000);
+                autoPlayInterval = setInterval(nextSlide, 3500);
             }
         }
         function stopAutoPlay() {
@@ -307,22 +309,27 @@ document.addEventListener('DOMContentLoaded', function () {
             carouselContainer.addEventListener('touchend', startAutoPlay);
         }
 
+        // Inicializar
         renderCarousel();
         startAutoPlay();
 
+        // Reconstruir al cambiar el tamaño de la ventana (debounce)
         let resizeTimeout;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 const newItemsPerSlide = getItemsPerSlide();
+                // Solo reconstruir si cambia el número de items por slide
                 if (newItemsPerSlide !== itemsPerSlide) {
                     itemsPerSlide = newItemsPerSlide;
+                    // Guardar el índice actual para intentar mantener la posición
                     const currentItem = currentIndex * itemsPerSlide;
                     renderCarousel();
+                    // Ajustar al slide que contiene el item actual
                     const newIndex = Math.min(Math.floor(currentItem / getItemsPerSlide()), slides.length - 1);
                     goToSlide(newIndex);
                 }
-            }, 250);
+            }, 200);
         });
     }
 
