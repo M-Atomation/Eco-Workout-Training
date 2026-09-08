@@ -661,6 +661,76 @@ body {
     border-bottom-color: #1e5e1e;
 }
 
+/* ================================================================
+   FOOTER CON REDES SOCIALES
+   ================================================================ */
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+}
+
+.footer-social a {
+    color: #3d6b3d;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.footer-social a:hover {
+    color: #1e5e1e;
+    transform: scale(1.1);
+}
+
+/* ================================================================
+   BOTÓN DE WHATSAPP
+   ================================================================ */
+.whatsapp-cta {
+    text-align: center;
+    margin: 2rem 0 1rem;
+}
+
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #25D366; /* Color oficial de WhatsApp */
+    color: #ffffff;
+    padding: 1rem 2.2rem;
+    border-radius: 60px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-whatsapp:hover {
+    background: #1ebe5a;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+}
+
+.btn-whatsapp i {
+    font-size: 1.6rem;
+}
+
+.cta-subtext {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: #4a6a4a;
+    font-weight: 500;
+}
+
+/* ================================================================
+   RESPONSIVE: OCULTAR REDES DEL HEADER EN MÓVIL
+   ================================================================ */
+@media (max-width: 850px) {
+    .header-social {
+        display: none; /* Ocultamos las redes del header en tablets y móviles */
+    }
+}
+
 
 /* ================================================================
    RESPONSIVE
