@@ -1,11 +1,6 @@
 /**
  * script.js - EcoWorkout CV Digital
- * Adriana Castañeda García - Personal & Sport Trainer
- * 
- * Funcionalidades:
- * 1. Menú hamburguesa para navegación en móviles.
- * 2. Carga de precios desde Google Sheets (API gviz).
- * 3. Carrusel de competencias deportivas con imágenes.
+ * Funcionalidades: menú hamburguesa, precios desde Google Sheets (CSV) y carrusel de competencias.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -16,97 +11,83 @@ document.addEventListener('DOMContentLoaded', function () {
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
 
-    if (menuToggle && mainNav) {
-        menuToggle.addEventListener('click', function () {
-            mainNav.classList.toggle('open');
-            const icon = this.querySelector('i');
-            if (mainNav.classList.contains('open')) {
-                icon.className = 'fas fa-times';
-            } else {
-                icon.className = 'fas fa-bars';
-            }
-        });
+    menuToggle.addEventListener('click', function () {
+        mainNav.classList.toggle('open');
+        const icon = this.querySelector('i');
+        icon.className = mainNav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+    });
 
-        // Cerrar menú al hacer clic en un enlace (para móviles)
-        document.querySelectorAll('.header-nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                mainNav.classList.remove('open');
-                const icon = menuToggle.querySelector('i');
-                if (icon) icon.className = 'fas fa-bars';
-            });
+    document.querySelectorAll('.header-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            menuToggle.querySelector('i').className = 'fas fa-bars';
         });
-    }
+    });
 
     // ================================================================
-    // 2. PRECIOS DESDE GOOGLE SHEETS
+    // 2. PRECIOS DESDE GOOGLE SHEETS (VÍA CSV PÚBLICO)
     // ================================================================
-    // ID de edición de la hoja de cálculo (copiado de la URL de edición)
-    const SHEET_ID = '1rCJeF_AtAovZBUlTz-EGWngYx0-lbLqKkGixX4EWSpg';
-    const SHEET_GID = '1546839515';  // ID de la pestaña 'precios pagina'
 
-    // URL para la API de Google Visualization
-    const URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}`;
+    // ✅ URL pública en formato CSV (obtenida de Archivo > Publicar en la web)
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRN13ajUpkzJ5rQWFOcS9XNWm3vxNA5wlwVTrapwFiHzW3SJaCemdjrRec-rjB2a6u2Rq1HtFLdQmxT/pub?output=csv&gid=1546839515&single=true';
 
     const pricingContainer = document.getElementById('pricing-container');
 
-    if (pricingContainer) {
-        // Mostrar mensaje de carga
-        pricingContainer.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Cargando planes...</div>`;
+    // Mostrar mensaje de carga
+    pricingContainer.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Cargando planes...</div>`;
 
-        fetch(URL)
-            .then(response => response.text())
-            .then(text => {
-                // La respuesta viene con un prefijo: /*O_o*/ google.visualization.Query.setResponse({...})
-                const jsonStart = text.indexOf('{');
-                const jsonEnd = text.lastIndexOf('}') + 1;
-                if (jsonStart === -1 || jsonEnd === 0) {
-                    throw new Error('Formato de respuesta inválido');
+    // Función para parsear CSV a array de objetos
+    function parseCSV(csvText) {
+        const lines = csvText.split('\n');
+        if (lines.length < 2) return [];
+
+        // Obtener encabezados (primera fila)
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+
+        const result = [];
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+            // Manejar campos con comillas
+            const row = [];
+            let current = '';
+            let insideQuotes = false;
+            for (let char of lines[i]) {
+                if (char === '"') {
+                    insideQuotes = !insideQuotes;
+                } else if (char === ',' && !insideQuotes) {
+                    row.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
                 }
-                const jsonString = text.substring(jsonStart, jsonEnd);
-                const parsed = JSON.parse(jsonString);
-                renderPricing(parsed);
-            })
-            .catch(error => {
-                console.error('Error cargando precios:', error);
-                pricingContainer.innerHTML = `
-                    <div style="background:#fce4ec; padding:1rem; border-radius:12px; border-left:4px solid #c62828;">
-                        <strong>⚠️ No se pudieron cargar los precios.</strong><br>
-                        Verifica que tu hoja esté publicada (Archivo > Compartir > Publicar en la web) y que el ID de la hoja sea correcto.
-                    </div>
-                `;
-            });
+            }
+            row.push(current.trim());
+
+            if (row.length === headers.length) {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index] ? row[index].replace(/^"|"$/g, '') : '';
+                });
+                result.push(obj);
+            }
+        }
+        return result;
     }
 
-    /**
-     * Función que renderiza las tarjetas de precios a partir de los datos de la hoja.
-     * Espera que la hoja tenga al menos dos columnas: nombre del plan y precio.
-     */
-    function renderPricing(data) {
-        if (!data.table || !data.table.rows || data.table.rows.length === 0) {
-            pricingContainer.innerHTML = '<p style="color: #4a6a4a;">No hay planes disponibles en este momento. Contáctame directamente.</p>';
+    // Función para renderizar las tarjetas de precios
+    function renderPricingFromCSV(data) {
+        if (!data || data.length === 0) {
+            pricingContainer.innerHTML = '<p style="color: #4a6a4a;">No hay planes disponibles. Contáctame directamente.</p>';
             return;
         }
 
-        const cols = data.table.cols.map(col => col.label);
-
         let html = '';
-        data.table.rows.forEach(row => {
-            const cells = row.c;
-            if (!cells || cells.length === 0) return;
-
-            // Construir un objeto con los valores de cada columna
-            const values = {};
-            cells.forEach((cell, index) => {
-                const label = cols[index] || `Columna ${index + 1}`;
-                values[label] = cell ? cell.v : '';
-            });
-
-            // Asumimos que la primera columna es el nombre del plan y la segunda el precio
-            const keys = Object.keys(values);
-            const plan = values[keys[0]] || 'Plan';
-            const precio = values[keys[1]] || '';
-            // Si hay una tercera columna, la usamos como descripción (opcional)
-            const desc = values[keys[2]] || '';
+        data.forEach(row => {
+            // Detectamos automáticamente las columnas
+            const keys = Object.keys(row);
+            const plan = row[keys[0]] || 'Plan';
+            const precio = row[keys[1]] || '';
+            const desc = row[keys[2]] || '';
 
             html += `
                 <div class="pricing-card">
@@ -117,18 +98,38 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
         });
 
-        pricingContainer.innerHTML = html || '<p style="color: #4a6a4a;">No se encontraron datos de precios.</p>';
+        pricingContainer.innerHTML = html || '<p style="color: #4a6a4a;">No se encontraron datos.</p>';
     }
 
+    // Cargar el CSV
+    fetch(CSV_URL)
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.text();
+        })
+        .then(csvText => {
+            const data = parseCSV(csvText);
+            renderPricingFromCSV(data);
+        })
+        .catch(error => {
+            console.error('Error cargando precios:', error);
+            pricingContainer.innerHTML = `
+                <div style="background:#fce4ec; padding:1rem; border-radius:12px; border-left:4px solid #c62828;">
+                    <strong>⚠️ No se pudieron cargar los precios.</strong><br>
+                    Verifica que tu hoja esté publicada (Archivo > Compartir > Publicar en la web).<br>
+                    <small style="color:#666;">Error: ${error.message}</small>
+                </div>
+            `;
+        });
+
     // ================================================================
-    // 3. CARRUSEL DE COMPETENCIAS DEPORTIVAS
+    // 3. CARRUSEL DE COMPETENCIAS
     // ================================================================
     const track = document.getElementById('carouselTrack');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const dotsContainer = document.getElementById('carouselDots');
 
-    // Lista de competencias con sus imágenes (ajusta las rutas según tus archivos)
     const competenciasData = [
         { nombre: 'Corre como el viento (FAC)', img: 'assets/competencias/corre-viento.jpg' },
         { nombre: 'Carrera por la Policía', img: 'assets/competencias/carrera-policia.jpg' },
@@ -178,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 img.alt = item.nombre;
                 img.loading = 'lazy';
                 img.onerror = function() {
-                    // Si la imagen no existe, mostrar un ícono de respaldo
                     this.style.display = 'none';
                     const fallback = document.createElement('div');
                     fallback.className = 'no-img';
@@ -198,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
             track.appendChild(slideDiv);
         });
 
-        // Crear puntos de navegación (dots)
         for (let i = 0; i < slides.length; i++) {
             const dot = document.createElement('button');
             dot.className = 'dot';
@@ -229,13 +228,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function nextSlide() { goToSlide(currentIndex + 1); }
     function prevSlide() { goToSlide(currentIndex - 1); }
 
-    // Eventos de los botones
-    if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
-    }
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
 
-    // Auto-play (con pausa al hover/touch)
     let autoPlayInterval = null;
     function startAutoPlay() {
         if (autoPlayInterval) clearInterval(autoPlayInterval);
@@ -249,18 +244,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const carouselContainer = document.querySelector('.carousel-container');
-    if (carouselContainer) {
-        carouselContainer.addEventListener('mouseenter', stopAutoPlay);
-        carouselContainer.addEventListener('mouseleave', startAutoPlay);
-        carouselContainer.addEventListener('touchstart', stopAutoPlay);
-        carouselContainer.addEventListener('touchend', startAutoPlay);
-    }
+    carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+    carouselContainer.addEventListener('mouseleave', startAutoPlay);
+    carouselContainer.addEventListener('touchstart', stopAutoPlay);
+    carouselContainer.addEventListener('touchend', startAutoPlay);
 
-    // Inicializar carrusel
     renderCarousel();
     startAutoPlay();
 
-    // Recalcular al redimensionar (para mantener la posición)
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
@@ -268,5 +259,4 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCarousel();
         }, 150);
     });
-
 });
