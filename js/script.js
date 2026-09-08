@@ -91,17 +91,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const pricingContainer = document.getElementById('pricing-container');
 
     if (pricingContainer) {
+        // Estado inicial de carga
         pricingContainer.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Cargando planes...</div>`;
 
-       /**
-         * Parsea el texto CSV a un arreglo de objetos (Soporta múltiples formatos de línea).
-         * @param {string} csvText - Texto en formato CSV.
-         * @returns {Array} Arreglo de objetos parseados.
+        /**
+         * Parsea el texto CSV a un arreglo de objetos (Robusto).
          */
         function parseCSV(csvText) {
-            // 1. Limpiamos espacios al inicio/final y separamos por saltos de línea (Windows/Mac/Linux)
             const lines = csvText.trim().split(/\r?\n/);
-            
             if (lines.length < 2) return [];
             
             const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
@@ -109,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             for (let i = 1; i < lines.length; i++) {
                 if (!lines[i].trim()) continue;
+                
                 const row = [];
                 let current = '';
                 let insideQuotes = false;
@@ -125,8 +123,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 row.push(current.trim());
                 
-                // Aseguramos que la fila tenga la misma cantidad de columnas que las cabeceras
-                if (row.length === headers.length) {
+                // Flexibilidad: Agregamos la fila siempre que tenga al menos un dato principal
+                if (row.length > 0 && row[0].trim() !== '') {
                     const obj = {};
                     headers.forEach((header, index) => {
                         obj[header] = row[index] ? row[index].replace(/^"|"$/g, '') : '';
@@ -136,10 +134,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return result;
         }
-        
+
         /**
          * Renderiza las tarjetas de precios en el DOM.
-         * @param {Array} data - Datos parseados del CSV.
          */
         function renderPricingFromCSV(data) {
             if (!data || data.length === 0) {
@@ -150,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let html = '';
             data.forEach(row => {
                 const keys = Object.keys(row);
+                // Mapeo seguro a los primeros tres índices dinámicamente
                 const plan = row[keys[0]] || 'Plan';
                 const precio = row[keys[1]] || '';
                 const desc = row[keys[2]] || '';
@@ -162,9 +160,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 `;
             });
-            pricingContainer.innerHTML = html || '<p style="color: #4a6a4a;">No se encontraron datos.</p>';
+            
+            pricingContainer.innerHTML = html;
         }
 
+        // Ejecución de la petición HTTP
         fetch(CSV_URL)
             .then(response => {
                 if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
@@ -175,12 +175,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 renderPricingFromCSV(data);
             })
             .catch(error => {
-                console.error('Error cargando precios:', error);
+                console.error('Error cargando precios de Google Sheets:', error);
                 pricingContainer.innerHTML = `
                     <div style="background:#fce4ec; padding:1rem; border-radius:12px; border-left:4px solid #c62828;">
                         <strong>⚠️ No se pudieron cargar los precios.</strong><br>
                         Verifica que tu hoja esté publicada correctamente.<br>
-                        <small style="color:#666;">Error: ${error.message}</small>
+                        <small style="color:#666;">Detalle técnico: ${error.message}</small>
                     </div>
                 `;
             });
