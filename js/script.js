@@ -117,17 +117,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const dotsContainer = document.getElementById('carouselDots');
 
     const competenciasData = [
-        { nombre: 'Corre como el viento (FAC)', img: 'assets/competitions/corre-viento.svg' },
-        { nombre: 'Carrera por la Policía', img: 'assets/competitions/carrera-policia.svg' },
-        { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competitions/batalla-ayacucho.svg' },
-        { nombre: 'Bimbo global Racer', img: 'assets/competitions/bimbo-global.svg' },
-        { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competitions/festival-cross.svg' },
-        { nombre: 'Campeonato distrital', img: 'assets/competitions/campeonato-distrital.svg' },
-        { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competitions/ruta-fucsia.svg' },
-        { nombre: 'MMB 10K', img: 'assets/competitions/mmb10k.svg' },
-        { nombre: 'NatGeo 10K', img: 'assets/competitions/natgeo10k.svg' },
-        { nombre: 'Carrera de la Mujer 10K', img: 'assets/competitions/mujer10k.svg' },
-        { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.svg' }
+        { nombre: 'Corre como el viento (FAC)', img: 'assets/competitions/corre-viento.jpg' },
+        { nombre: 'Carrera por la Policía', img: 'assets/competitions/carrera-policia.jpg' },
+        { nombre: 'Batalla de Ayacucho dos siglos de Gloria', img: 'assets/competitions/batalla-ayacucho.jpg' },
+        { nombre: 'Bimbo global Racer', img: 'assets/competitions/bimbo-global.jpg' },
+        { nombre: 'Primer Festival de Cross Country MTB', img: 'assets/competitions/festival-cross.jpg' },
+        { nombre: 'Campeonato distrital', img: 'assets/competitions/campeonato-distrital.jpg' },
+        { nombre: 'Ruta Fucsia Colombina (Parceros MTB/Ruta)', img: 'assets/competitions/ruta-fucsia.jpg' },
+        { nombre: 'MMB 10K', img: 'assets/competitions/mmb10k.jpg' },
+        { nombre: 'NatGeo 10K', img: 'assets/competitions/natgeo10k.jpg' },
+        { nombre: 'Carrera de la Mujer 10K', img: 'assets/competitions/mujer10k.jpg' },
+        { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.jpg' }
     ];
 
     const ITEMS_PER_SLIDE = 3;
