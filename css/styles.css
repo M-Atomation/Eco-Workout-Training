@@ -484,7 +484,7 @@ body {
 }
 
 /* ================================================================
-   8. CARRUSEL DE COMPETENCIAS - CORREGIDO Y CENTRADO
+   8. CARRUSEL DE COMPETENCIAS - UNIFICADO Y CENTRADO
    ================================================================ */
 .carousel-container {
     position: relative;
@@ -516,7 +516,7 @@ body {
     padding: 0.2rem;
 }
 
-/* Tarjetas de competencias - BASE (centrado absoluto) */
+/* Tarjetas de competencias - BASE */
 .competencia-card {
     display: flex;
     flex-direction: column;
@@ -691,7 +691,7 @@ body {
     }
 }
 
-/* ===== MÓVILES: CORREGIDO (centrado y una columna) ===== */
+/* Móviles: 1 columna centrada */
 @media (max-width: 600px) {
     .carousel-container {
         padding: 1rem 0.2rem 1rem;
@@ -702,7 +702,7 @@ body {
         margin: 0 0.5rem;
     }
 
-    /* Convertir slide a flex para centrar la tarjeta */
+    /* Forzar flex para centrar la tarjeta */
     .carousel-slide {
         display: flex !important;
         justify-content: center;
@@ -714,15 +714,8 @@ body {
         max-width: 320px;
         width: 100%;
         margin: 0 auto;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        background: #ffffff;
-        border-radius: 16px;
         padding: 0.8rem 0.5rem 1rem;
-        box-shadow: 0 4px 12px rgba(0, 20, 0, 0.06);
-        border: 1px solid #eaf3ea;
+        border-radius: 16px;
     }
 
     .competencia-card img {
@@ -781,7 +774,7 @@ body {
 }
 
 /* ================================================================
-   9. PRECIOS - MEJORADO Y UNIFORME
+   9. PRECIOS - UNIFORME Y VERTICAL EN MÓVIL
    ================================================================ */
 #pricing-container {
     display: grid;
@@ -837,7 +830,7 @@ body {
     font-size: 1rem;
 }
 
-/* ===== MÓVILES: PRECIOS EN UNA SOLA COLUMNA (vertical) ===== */
+/* Móviles: precios en UNA columna vertical */
 @media (max-width: 600px) {
     #pricing-container {
         grid-template-columns: 1fr !important;
@@ -1354,10 +1347,6 @@ body {
 }
 
 @media (max-width: 400px) {
-    #pricing-container {
-        grid-template-columns: 1fr;
-    }
-
     .profile-contact {
         flex-direction: column;
         align-items: center;
