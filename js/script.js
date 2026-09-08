@@ -1,7 +1,7 @@
 /**
  * script.js - EcoWorkout CV Digital
  * Funcionalidades: menú hamburguesa, precios desde Google Sheets (CSV),
- * carrusel de competencias y gestión de la línea de tiempo.
+ * carrusel de competencias (responsivo) y gestión de la línea de tiempo.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
             icon.className = mainNav.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
         });
 
-        // Cerrar al hacer clic en un enlace
         document.querySelectorAll('.header-nav a').forEach(link => {
             link.addEventListener('click', () => {
                 mainNav.classList.remove('open');
@@ -33,41 +32,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2. LÍNEA DE TIEMPO (híbrida: horizontal + vertical)
     // ================================================================
     const experienciaData = [
-        {
-            cargo: 'Instructora de gimnasio',
-            empresa: 'Ecos del deporte',
-            fecha: 'Mar 2026 – Jun 2026'
-        },
-        {
-            cargo: 'Instructora de gimnasio',
-            empresa: 'Colsubsidio',
-            fecha: 'May 2023 – Ene 2026'
-        },
-        {
-            cargo: 'Instructora · SERO',
-            empresa: 'Servicios Ocasionales',
-            fecha: 'Oct 2022 – May 2023'
-        },
-        {
-            cargo: 'Instructora y Salvavidas',
-            empresa: 'CEDA',
-            fecha: 'Jun 2022 – Sep 2022'
-        },
-        {
-            cargo: 'Instructora de gimnasio',
-            empresa: 'INCAP S.A.S',
-            fecha: 'Oct 2021 – Dic 2021'
-        },
-        {
-            cargo: 'Instructora de gimnasio',
-            empresa: 'Colsubsidio',
-            fecha: 'Jun 2019 – Jul 2020'
-        },
-        {
-            cargo: 'Instructora de gimnasio',
-            empresa: 'ATLANTIC POOLS INC.',
-            fecha: 'Mar 2019 – Abr 2019'
-        }
+        { cargo: 'Instructora de gimnasio', empresa: 'Ecos del deporte', fecha: 'Mar 2026 – Jun 2026' },
+        { cargo: 'Instructora de gimnasio', empresa: 'Colsubsidio', fecha: 'May 2023 – Ene 2026' },
+        { cargo: 'Instructora · SERO', empresa: 'Servicios Ocasionales', fecha: 'Oct 2022 – May 2023' },
+        { cargo: 'Instructora y Salvavidas', empresa: 'CEDA', fecha: 'Jun 2022 – Sep 2022' },
+        { cargo: 'Instructora de gimnasio', empresa: 'INCAP S.A.S', fecha: 'Oct 2021 – Dic 2021' },
+        { cargo: 'Instructora de gimnasio', empresa: 'Colsubsidio', fecha: 'Jun 2019 – Jul 2020' },
+        { cargo: 'Instructora de gimnasio', empresa: 'ATLANTIC POOLS INC.', fecha: 'Mar 2019 – Abr 2019' }
     ];
 
     function renderTimeline(data) {
@@ -80,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let htmlV = '';
 
         data.forEach(item => {
-            // Horizontal
             htmlH += `
                 <div class="timeline-h-item">
                     <div class="timeline-h-marker"></div>
@@ -92,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             `;
 
-            // Vertical
             htmlV += `
                 <div class="timeline-v-item">
                     <div class="timeline-v-marker"></div>
@@ -196,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ================================================================
-    // 4. CARRUSEL DE COMPETENCIAS
+    // 4. CARRUSEL DE COMPETENCIAS (RESPONSIVO)
     // ================================================================
     const track = document.getElementById('carouselTrack');
     const prevBtn = document.getElementById('prevBtn');
@@ -218,14 +187,22 @@ document.addEventListener('DOMContentLoaded', function () {
             { nombre: 'Carrera verde', img: 'assets/competitions/carrera-verde.svg' }
         ];
 
-        const ITEMS_PER_SLIDE = 3;
+        let itemsPerSlide = getItemsPerSlide();
         let currentIndex = 0;
         let slides = [];
 
+        function getItemsPerSlide() {
+            const width = window.innerWidth;
+            if (width <= 600) return 1;
+            if (width <= 850) return 2;
+            return 3;
+        }
+
         function buildSlides() {
+            const perSlide = getItemsPerSlide();
             const groups = [];
-            for (let i = 0; i < competenciasData.length; i += ITEMS_PER_SLIDE) {
-                groups.push(competenciasData.slice(i, i + ITEMS_PER_SLIDE));
+            for (let i = 0; i < competenciasData.length; i += perSlide) {
+                groups.push(competenciasData.slice(i, i + perSlide));
             }
             return groups;
         }
@@ -272,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 track.appendChild(slideDiv);
             });
 
-            // Crear dots
+            // Dots
             for (let i = 0; i < slides.length; i++) {
                 const dot = document.createElement('button');
                 dot.className = 'dot';
@@ -282,6 +259,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 dotsContainer.appendChild(dot);
             }
 
+            if (currentIndex >= slides.length) currentIndex = slides.length - 1;
+            if (currentIndex < 0) currentIndex = 0;
             updateCarousel();
         }
 
@@ -310,7 +289,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let autoPlayInterval = null;
         function startAutoPlay() {
             if (autoPlayInterval) clearInterval(autoPlayInterval);
-            autoPlayInterval = setInterval(nextSlide, 3500);
+            if (slides.length > 1) {
+                autoPlayInterval = setInterval(nextSlide, 4000);
+            }
         }
         function stopAutoPlay() {
             if (autoPlayInterval) {
@@ -327,15 +308,24 @@ document.addEventListener('DOMContentLoaded', function () {
             carouselContainer.addEventListener('touchend', startAutoPlay);
         }
 
+        // Inicializar
         renderCarousel();
         startAutoPlay();
 
+        // Reconstruir al redimensionar (debounce)
         let resizeTimeout;
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', function () {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                updateCarousel();
-            }, 150);
+                const newItemsPerSlide = getItemsPerSlide();
+                if (newItemsPerSlide !== itemsPerSlide) {
+                    itemsPerSlide = newItemsPerSlide;
+                    const currentItem = currentIndex * itemsPerSlide;
+                    renderCarousel();
+                    const newIndex = Math.min(Math.floor(currentItem / getItemsPerSlide()), slides.length - 1);
+                    goToSlide(newIndex);
+                }
+            }, 250);
         });
     }
 
@@ -345,5 +335,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const yearSpan = document.getElementById('currentYear');
     if (yearSpan) {
         yearSpan.innerText = new Date().getFullYear();
+    }
+
+    // ================================================================
+    // 6. BOTÓN VOLVER ARRIBA
+    // ================================================================
+    const backToTopBtn = document.getElementById('backToTop');
+
+    if (backToTopBtn) {
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     }
 });
