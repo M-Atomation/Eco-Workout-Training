@@ -173,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const dotsContainer = document.getElementById('carouselDots');
 
     if (track && prevBtn && nextBtn && dotsContainer) {
-        // ✅ RUTAS CORREGIDAS: .jpg en lugar de .svg
         const competenciasData = [
             { nombre: 'Corre como el viento (FAC)', img: 'assets/competitions/corre-viento.jpg' },
             { nombre: 'Carrera por la Policía', img: 'assets/competitions/carrera-policia.jpg' },
